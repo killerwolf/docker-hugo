@@ -6,11 +6,13 @@ dependencies:
   pre:
     - cat Dockerfile.template | sed -e 's/%%HUGO_VERSION%%/0.12/g' | docker build -t killerwolf/hugo:0.12 -
     - cat Dockerfile.template | sed -e 's/%%HUGO_VERSION%%/0.13/g' | docker build -t killerwolf/hugo:0.13 -
+    - cat Dockerfile.template | sed -e 's/%%HUGO_VERSION%%/0.14/g' | docker build -t killerwolf/hugo:0.14 -
 
 test:
   post:
     - docker run killerwolf/hugo:0.12 version|grep 'Hugo Static Site Generator v0.12'
     - docker run killerwolf/hugo:0.13 version|grep 'Hugo Static Site Generator v0.13'
+    - docker run killerwolf/hugo:0.14 version|grep 'Hugo Static Site Generator v0.14'
 
 deployment:
   hub:
@@ -19,3 +21,5 @@ deployment:
       - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
       - docker push killerwolf/hugo:0.12
       - docker push killerwolf/hugo:0.13
+      - docker push killerwolf/hugo:0.14
+      - docker tag killerwolf/hugo:0.14 killerwolf/hugo:latest && docker push killerwolf/hugo:latest
