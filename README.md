@@ -14,7 +14,7 @@ This repository powers [killerwolf/hugo](https://registry.hub.docker.com/u/kille
 Let's run our first command: bootstraping a new blog with hugo:
 
 	$ mkdir ~/blog && cd blog
-	$ docker run --rm -v $PWD:/blog:rw killerwolf/hugo:0.13 new site /blog
+	$ docker run --rm -v $PWD:/blog:rw killerwolf/hugo new site /blog
 
 
 This command generate a new skeleton (files and folder)
@@ -22,7 +22,21 @@ This command generate a new skeleton (files and folder)
 	$ ls
 	archetypes	config.toml	content		data		layouts		static
 
+### Choose your theme
+
 Adding our chosen theme (herring-cove, you're free to swap it)
 
 	$ mkdir themes && cd themes
 	$ git clone https://github.com/spf13/herring-cove.git
+
+### Generate static blog
+
+Write some markdown content into `content/` directory, and then launch 
+
+	$ docker run --rm -v $PWD:/app:rw killerwolf/hugo -s /app -d dist/
+
+You'll find fond your generated blog under the `dist` folder
+
+## Contributing
+
+Fork and send a pull request
